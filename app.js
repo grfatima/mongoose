@@ -1,9 +1,6 @@
-import express from "express";
 import dotenv from "dotenv";
+import express from "express";
 import { connect } from "mongoose";
-import { bookModel } from "./schemas/bookSchema.js";
-import { authorModel } from "./schemas/authorSchema.js";
-import { genreModel } from "./schemas/genreSchema.js";
 import bodyParser from "body-parser";
 import { authorRoutes } from "./routes/authorRoutes.js";
 
@@ -22,3 +19,4 @@ connect(uri).then(() => {
 app.listen(port, () => {
   console.log(`isleyir http://localhost:${port}`);
 });
+
