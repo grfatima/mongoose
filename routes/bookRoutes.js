@@ -1,33 +1,46 @@
 import { Router } from "express";
 import { bookModel } from "../schemas/bookSchema.js";
 
-export const bookRoutes = new Router();
+export const bookRoutes = Router();
 
-// get request
+// GET: butun kitablari
 bookRoutes.get("/", async (req, res) => {
-  const data = await bookModel.find();
-  res.status(200).send(data);
+  try {
+    const data = await bookModel.find();
+    res.status(200).send(data);
+  } catch (err) {
+    res.status(500).send({ message: "Xeta" });
+  }
 });
 
+// GET: ID ile kitablar
 bookRoutes.get("/:id", async (req, res) => {
-  const id = req.params.id;
-  const data = await bookModel.findById(id);
-  res.status(200).send(data);
+  try {
+    const id = req.params.id;
+    const data = await bookModel.findById(id);
+    if (!data) {
+      return res.status(404).send({ message: "Kitab tapilmadi" });
+    }
+    res.status(200).send(data);
+  } catch (err) {
+    res.status(500).send({ message: "Xeta" });
+  }
 });
 
-// delete request
-bookRoutes.delete("/:id", (req, res) => {
-  const id = req.params.id;
-  bookModel
-    .findByIdAndDelete(id)
-    .then(() => {
-      res.status(200).send({
-        massage: "ugurla silindi",
-      });
-    })
-    .catch(() => {
-      res.status(500).send({
-        massage: "tapilmadi",
-      });
-    });
+// POST: kitab elave et
+
+// DELETE: muellif sil
+bookRoutes.delete("/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const deleted = await bookModel.findByIdAndDelete(id);
+    if (!deleted) {
+      return res.status(404).send({ message: "Kitab tapilmadi." });
+    }
+    res.status(200).send({ message: "Ugurla silindi" });
+  } catch (err) {
+    res.status(500).send({ message: "Xeta" });
+  }
 });
+
+// PUT: kitab yenile
