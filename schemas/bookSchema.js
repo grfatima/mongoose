@@ -6,7 +6,6 @@ const bookSchema = new Schema({
   price: Number,
   currency: String,
   image: String,
-  
   author: [
     {
       type: Types.ObjectId,
