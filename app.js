@@ -3,7 +3,6 @@ import express from "express";
 import { connect } from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
-import { bookRoutes } from "./routes/bookRoutes.js";
 import { genreRoutes } from "./routes/genreRoutes.js";
 import { authorRoutes } from "./routes/authorRoutes.js";
 import multer from "multer";
@@ -17,7 +16,6 @@ app.use(bodyParser.json());
 const uri = process.env.DB_URI;
 const port = process.env.BACKEND_PORT;
 
-app.use("/api/v1/books", bookRoutes);
 app.use("/api/v1/genres", genreRoutes);
 app.use("/api/v1/authors", authorRoutes);
 

@@ -5,13 +5,6 @@ const authorSchema = new Schema(
     name: String,
     surname: String,
     age: Number,
-    books: [
-      
-      {
-        type: Types.ObjectId,
-        ref: "book",
-      },
-    ],
   },
   { versionKey: false }
 );
